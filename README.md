@@ -1,0 +1,2 @@
+# Altcrypto
+Altcrypto trading platform
