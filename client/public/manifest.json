@@ -1,0 +1,46 @@
+{
+  "name": "AltCrypto Trading",
+  "short_name": "AltCrypto",
+  "description": "Professional cryptocurrency fixed-time trading platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#00ff9c",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Trading",
+      "short_name": "Trade",
+      "description": "Go to trading",
+      "url": "/trading"
+    },
+    {
+      "name": "Wallet",
+      "short_name": "Wallet",
+      "description": "View wallet",
+      "url": "/wallet"
+    }
+  ]
+}

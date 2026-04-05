@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Chakra Petch', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --background: 200 25% 5%;
+  --foreground: 180 10% 88%;
+
+  --card: 195 25% 8%;
+  --card-foreground: 180 10% 88%;
+  --card-border: 190 20% 16%;
+
+  --popover: 195 25% 8%;
+  --popover-foreground: 180 10% 88%;
+  --popover-border: 190 20% 16%;
+
+  --primary: 160 84% 44%;
+  --primary-foreground: 180 30% 4%;
+  --primary-border: 160 84% 34%;
+
+  --secondary: 195 18% 16%;
+  --secondary-foreground: 180 10% 88%;
+  --secondary-border: 190 15% 22%;
+
+  --muted: 195 20% 10%;
+  --muted-foreground: 190 12% 52%;
+  --muted-border: 190 15% 18%;
+
+  --accent: 195 22% 13%;
+  --accent-foreground: 180 10% 88%;
+  --accent-border: 190 18% 20%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --destructive-border: 0 72% 41%;
+
+  --border: 190 18% 14%;
+  --input: 195 20% 12%;
+  --ring: 160 84% 44%;
+
+  --radius: 0.75rem;
+
+  --trade-up: 160 84% 44%;
+  --trade-down: 0 72% 51%;
+
+  --sidebar: 200 28% 6%;
+  --sidebar-foreground: 180 10% 88%;
+  --sidebar-border: 190 18% 14%;
+  --sidebar-ring: 160 84% 44%;
+  --sidebar-primary: 160 84% 44%;
+  --sidebar-primary-foreground: 180 30% 4%;
+  --sidebar-primary-border: 160 84% 34%;
+  --sidebar-accent: 195 22% 13%;
+  --sidebar-accent-foreground: 180 10% 88%;
+  --sidebar-accent-border: 190 18% 20%;
+
+  --chart-1: 160 84% 44%;
+  --chart-2: 190 70% 50%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    /* ── Dark-mode ambient gradient layers ── */
+    background-image:
+      radial-gradient(ellipse 70% 45% at 10% -5%, rgba(20, 184, 166, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 40% at 90% 100%, rgba(59, 130, 246, 0.09) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 35% at 55% 55%, rgba(20, 184, 166, 0.04) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* ── Card glass override (dark mode only) ──
+   NOTE: backdrop-filter is intentionally omitted here.
+   Applying it globally to .bg-card breaks canvas rendering
+   (lightweight-charts TradingChart) in Chrome/Safari due to
+   a compositing bug when overflow:hidden + backdrop-filter
+   are combined with a canvas child.
+   Semi-transparent background alone is sufficient for the
+   glass look against the body gradient layers.
+── */
+html:not(.light) .bg-card {
+  background-color: rgba(9, 18, 26, 0.80) !important;
+}
+
+/* ── LIGHT MODE overrides ── */
+.light {
+  --background: 220 20% 97%;
+  --foreground: 220 20% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 10%;
+  --card-border: 220 13% 87%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 10%;
+  --popover-border: 220 13% 87%;
+
+  --primary: 160 84% 32%;
+  --primary-foreground: 0 0% 100%;
+  --primary-border: 160 84% 25%;
+
+  --secondary: 220 13% 92%;
+  --secondary-foreground: 220 20% 14%;
+  --secondary-border: 220 13% 84%;
+
+  --muted: 220 13% 93%;
+  --muted-foreground: 220 10% 45%;
+  --muted-border: 220 13% 85%;
+
+  --accent: 220 13% 90%;
+  --accent-foreground: 220 20% 10%;
+  --accent-border: 220 13% 82%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --destructive-border: 0 72% 41%;
+
+  --border: 220 13% 87%;
+  --input: 220 13% 92%;
+  --ring: 160 84% 32%;
+
+  --sidebar: 220 20% 98%;
+  --sidebar-foreground: 220 20% 10%;
+  --sidebar-border: 220 13% 87%;
+  --sidebar-ring: 160 84% 32%;
+  --sidebar-primary: 160 84% 32%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-primary-border: 160 84% 25%;
+  --sidebar-accent: 220 13% 90%;
+  --sidebar-accent-foreground: 220 20% 10%;
+  --sidebar-accent-border: 220 13% 82%;
+}
+
+/* Light mode body gradient */
+.light body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 50%, #e8edf4 100%) fixed !important;
+  background-attachment: fixed !important;
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  /* ── Glow effects ── */
+  .glow-green {
+    box-shadow: 0 0 24px -3px rgba(16, 185, 129, 0.45), 0 0 8px -1px rgba(16, 185, 129, 0.2);
+  }
+  .glow-red {
+    box-shadow: 0 0 24px -3px rgba(239, 68, 68, 0.45), 0 0 8px -1px rgba(239, 68, 68, 0.2);
+  }
+  .glow-teal {
+    box-shadow: 0 0 30px -5px rgba(20, 184, 166, 0.35), 0 0 10px -2px rgba(20, 184, 166, 0.15);
+  }
+  .glow-blue {
+    box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.35), 0 0 10px -2px rgba(59, 130, 246, 0.15);
+  }
+
+  /* ── Glassmorphism card ── */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ── Neon border accent ── */
+  .neon-border-green {
+    border-color: rgba(52, 211, 153, 0.35);
+    box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.12) inset;
+  }
+  .neon-border-teal {
+    border-color: rgba(20, 184, 166, 0.35);
+    box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.12) inset;
+  }
+
+  /* ── Hero background layers ── */
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* ── Hero radial glow (enhanced) ── */
+  .hero-radial-glow {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(0, 255, 200, 0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(52, 211, 153, 0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  }
+
+  /* ── Soft white glow ── */
+  .glow-white {
+    box-shadow: 0 0 40px -8px rgba(255,255,255,0.10), 0 0 10px -2px rgba(255,255,255,0.05);
+  }
+
+  /* ── Logo / icon green glow ── */
+  .logo-glow {
+    filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.55)) drop-shadow(0 0 3px rgba(52, 211, 153, 0.3));
+  }
+
+  /* ── Thin white divider ── */
+  .white-divider {
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── Card hover — lift + neon glow ── */
+  .card-hover {
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: rgba(52, 211, 153, 0.20);
+    box-shadow:
+      0 12px 40px rgba(0,0,0,0.4),
+      0 0 0 1px rgba(52, 211, 153, 0.08),
+      0 0 24px -6px rgba(52, 211, 153, 0.18);
+  }
+
+  /* ── Outline / secondary button — white accent ── */
+  .btn-white-outline {
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .btn-white-outline:hover {
+    border-color: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.07);
+    color: #ffffff;
+    box-shadow: 0 0 18px -4px rgba(255,255,255,0.12);
+  }
+
+  /* ── Primary button green neon glow ── */
+  .btn-primary-glow {
+    transition: box-shadow 0.25s, transform 0.15s;
+  }
+  .btn-primary-glow:hover {
+    box-shadow:
+      0 0 20px rgba(0, 255, 200, 0.25),
+      0 0 36px -4px rgba(52, 211, 153, 0.45),
+      0 0 8px -1px rgba(52, 211, 153, 0.30);
+    transform: translateY(-1px);
+  }
+
+  /* ── Active element neon highlight ── */
+  .active-neon {
+    background: rgba(52, 211, 153, 0.10);
+    border: 1px solid rgba(52, 211, 153, 0.22);
+    box-shadow:
+      0 0 18px -4px rgba(52, 211, 153, 0.30),
+      0 0 6px -1px rgba(52, 211, 153, 0.15) inset;
+  }
+
+  /* ── Sidebar gradient ── */
+  .sidebar-gradient {
+    background:
+      linear-gradient(
+        170deg,
+        rgba(14, 26, 34, 0.98) 0%,
+        rgba(10, 20, 28, 0.98) 50%,
+        rgba(8, 18, 26, 0.98) 100%
+      );
+    background-image:
+      linear-gradient(170deg, rgba(14, 26, 34, 0.98) 0%, rgba(8, 18, 26, 0.98) 100%),
+      radial-gradient(ellipse 120% 60% at 50% 0%, rgba(20, 184, 166, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(20, 184, 166, 0.14);
+  }
+}
+
+/* ── LIGHT MODE utility overrides ── */
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+.light .hero-grid {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.light .hero-radial-glow {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(16,185,129,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 40% at 80% 90%, rgba(59, 130, 246, 0.07) 0%, transparent 55%);
+}
+.light .glow-white {
+  box-shadow: 0 0 40px -8px rgba(0,0,0,0.08), 0 0 10px -2px rgba(0,0,0,0.04);
+}
+.light .white-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.light .card-hover:hover {
+  border-color: rgba(22, 163, 74, 0.18);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.10), 0 0 0 1px rgba(22,163,74,0.08);
+}
+.light .btn-white-outline {
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  color: rgba(0, 0, 0, 0.76);
+  background: rgba(255, 255, 255, 0.70);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.light .btn-white-outline:hover {
+  border-color: rgba(22, 163, 74, 0.40);
+  background: rgba(255, 255, 255, 0.90);
+  color: #000;
+  box-shadow: 0 4px 14px rgba(22,163,74,0.12);
+}
+.light .text-shadow {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.light .sidebar-gradient {
+  background: hsl(var(--sidebar));
+  background-image: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-right: 1px solid hsl(var(--sidebar-border));
+}
+.light .active-neon {
+  background: rgba(22, 163, 74, 0.10);
+  border: 1px solid rgba(22, 163, 74, 0.22);
+  box-shadow: none;
+}
+/* ── Light mode globe ── */
+.light .hero-globe-glow {
+  background: radial-gradient(ellipse 65% 65% at 50% 50%,
+    rgba(59, 130, 246, 0.14) 0%,
+    rgba(16, 185, 129, 0.08) 45%,
+    transparent 70%) !important;
+  filter: blur(50px) !important;
+  width: 860px;
+  height: 860px;
+}
+.light .hero-globe-img {
+  opacity: 0.30 !important;
+  filter: blur(1.5px) contrast(115%) !important;
+  box-shadow: 0 0 80px 20px rgba(59, 130, 246, 0.12);
+}
+
+/* ── Light mode card glow on hover (softer) ── */
+.light .card-glow-green:hover {
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.14), 0 0 0 1px rgba(22, 163, 74, 0.10) !important;
+  border-color: rgba(22, 163, 74, 0.22) !important;
+}
+.light .card-glow-blue:hover {
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.14), 0 0 0 1px rgba(59, 130, 246, 0.10) !important;
+  border-color: rgba(59, 130, 246, 0.22) !important;
+}
+.light .card-glow-violet:hover {
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.14), 0 0 0 1px rgba(139, 92, 246, 0.10) !important;
+  border-color: rgba(139, 92, 246, 0.22) !important;
+}
+.light .card-glow-cyan:hover {
+  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.14), 0 0 0 1px rgba(6, 182, 212, 0.10) !important;
+  border-color: rgba(6, 182, 212, 0.22) !important;
+}
+
+/* Restore solid card backgrounds in light mode */
+html.light .bg-card {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary));
+}
+
+/* ── Hero floating coin icons ── */
+@keyframes float-a {
+  0%,100% { transform: translateY(0px) rotate(-6deg); }
+  50%      { transform: translateY(-22px) rotate(4deg); }
+}
+@keyframes float-b {
+  0%,100% { transform: translateY(0px) rotate(8deg); }
+  50%      { transform: translateY(18px) rotate(-5deg); }
+}
+@keyframes float-c {
+  0%,100% { transform: translateY(-8px) rotate(3deg); }
+  50%      { transform: translateY(14px) rotate(-8deg); }
+}
+@keyframes float-d {
+  0%,100% { transform: translateY(10px) rotate(-4deg); }
+  50%      { transform: translateY(-16px) rotate(6deg); }
+}
+.float-a { animation: float-a 7s ease-in-out infinite; }
+.float-b { animation: float-b 9s ease-in-out infinite; }
+.float-c { animation: float-c 8s ease-in-out infinite 1s; }
+.float-d { animation: float-d 11s ease-in-out infinite 2s; }
+
+/* ── Market ticker scroll ── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 28s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+/* ── Card enhanced glow on hover ── */
+.card-glow-green:hover {
+  box-shadow: 0 0 28px -4px rgba(52, 211, 153, 0.30), 0 8px 32px rgba(0,0,0,0.35);
+  border-color: rgba(52, 211, 153, 0.22) !important;
+}
+.card-glow-blue:hover {
+  box-shadow: 0 0 28px -4px rgba(59, 130, 246, 0.28), 0 8px 32px rgba(0,0,0,0.35);
+  border-color: rgba(59, 130, 246, 0.22) !important;
+}
+.card-glow-violet:hover {
+  box-shadow: 0 0 28px -4px rgba(139, 92, 246, 0.28), 0 8px 32px rgba(0,0,0,0.35);
+  border-color: rgba(139, 92, 246, 0.22) !important;
+}
+.card-glow-cyan:hover {
+  box-shadow: 0 0 28px -4px rgba(34, 211, 238, 0.28), 0 8px 32px rgba(0,0,0,0.35);
+  border-color: rgba(34, 211, 238, 0.22) !important;
+}
+
+/* ── Globe — base dark mode styles ── */
+.hero-globe-glow {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 820px; height: 820px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 65% 65% at 50% 50%,
+    rgba(52,211,153,0.09) 0%,
+    rgba(59,130,246,0.07) 40%,
+    transparent 70%);
+  filter: blur(40px);
+}
+
+/* Circular div with globe as background — no corner artifacts during rotation */
+.hero-globe-img {
+  top: 50%; left: 50%;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background-image: url('/globe.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  filter: blur(2px);
+}
+
+/* ── Globe rotation ── */
+@keyframes globe-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.globe-rotate {
+  animation: globe-spin 60s linear infinite;
+}
